@@ -3,8 +3,19 @@ import { ApolloServer, gql } from "apollo-server"
 // Scalar Type: Built in
 
 const typeDefs = gql`
+  type User {
+    id: ID
+    username: String
+  }
+  type Tweet {
+    id: ID
+    text: String
+    author: User
+  }
+
   type Query {
-    allTweets: 
+    allTweets: [Tweet]
+    tweet(id: ID): Tweet
   }
 `
 
