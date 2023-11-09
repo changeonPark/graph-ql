@@ -35,7 +35,13 @@ const typeDefs = gql`
     lastName: String!
     fullName: String!
   }
+  """
+  트윗 관련 타입
+  """
   type Tweet {
+    """
+    아이디
+    """
     id: ID!
     text: String!
     author: User
@@ -51,6 +57,9 @@ const typeDefs = gql`
   # POST, PUT, DELETE
   type Mutation {
     postTweet(text: String!, userId: ID!): Tweet!
+    """
+    트윗을 찾으면 삭제 및 true 반환, 없으면 false 반환
+    """
     deleteTweet(id: ID!): Boolean!
   }
 `
