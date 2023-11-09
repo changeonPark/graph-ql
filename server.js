@@ -16,7 +16,7 @@ const typeDefs = gql`
   # GET
   type Query {
     allTweets: [Tweet!]!
-    tweet(id: ID!): Tweet!
+    tweet(id: ID!): Tweet
   }
 
   # POST, PUT, DELETE
