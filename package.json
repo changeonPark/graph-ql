@@ -1,21 +1,12 @@
 {
-  "name": "graph-ql",
+  "name": "graphql",
   "version": "1.0.0",
-  "description": "",
+  "description": "graphql practice",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "base": "pnpm -F @graphql/base"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "apollo-server": "^3.12.1",
-    "graphql": "^16.8.1",
-    "node-fetch": "^3.3.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  },
-  "type": "module"
+  "license": "ISC"
 }

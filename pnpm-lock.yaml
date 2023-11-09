@@ -4,21 +4,25 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  apollo-server:
-    specifier: ^3.12.1
-    version: 3.12.1(graphql@16.8.1)
-  graphql:
-    specifier: ^16.8.1
-    version: 16.8.1
-  node-fetch:
-    specifier: ^3.3.2
-    version: 3.3.2
+importers:
 
-devDependencies:
-  nodemon:
-    specifier: ^3.0.1
-    version: 3.0.1
+  .: {}
+
+  packages/base:
+    dependencies:
+      apollo-server:
+        specifier: ^3.12.1
+        version: 3.12.1(graphql@16.8.1)
+      graphql:
+        specifier: ^16.8.1
+        version: 16.8.1
+      node-fetch:
+        specifier: ^3.3.2
+        version: 3.3.2
+    devDependencies:
+      nodemon:
+        specifier: ^3.0.1
+        version: 3.0.1
 
 packages:
 
