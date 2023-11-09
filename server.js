@@ -11,12 +11,27 @@ let tweets = [
   },
 ]
 
+let users = [
+  {
+    id: "1",
+    firstName: "changeon",
+    lastName: "Park",
+  },
+  {
+    id: "2",
+    firstName: "Elon",
+    lastName: "Musk",
+  },
+]
+
 // Scalar Type: Built in
 
 const typeDefs = gql`
   type User {
     id: ID!
-    username: String!
+    firstName: String!
+    lastName: String!
+    fullName: String!
   }
   type Tweet {
     id: ID!
@@ -26,6 +41,7 @@ const typeDefs = gql`
 
   # GET
   type Query {
+    allUsers: [User!]!
     allTweets: [Tweet!]!
     tweet(id: ID!): Tweet
   }
@@ -39,7 +55,10 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    allTweets() {
+    allUsers(root) {
+      return users
+    },
+    allTweets(root) {
       return tweets
     },
     tweet(root, args) {
@@ -66,6 +85,14 @@ const resolvers = {
 
       tweets = tweets.filter((tweet) => tweet.id !== id)
       return true
+    },
+  },
+  User: {
+    fullName(parent, _, contextValue) {
+      console.log(parent)
+      console.log('contextValue: ', contextValue)
+      const { firstName, lastName } = parent
+      return `${firstName} ${lastName}`
     },
   },
 }
