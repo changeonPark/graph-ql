@@ -1,5 +1,16 @@
 import { ApolloServer, gql } from "apollo-server"
 
+const tweets = [
+  {
+    id: "1",
+    text: "Hello World!",
+  },
+  {
+    id: "2",
+    text: "Bye World!",
+  },
+]
+
 // Scalar Type: Built in
 
 const typeDefs = gql`
@@ -10,7 +21,7 @@ const typeDefs = gql`
   type Tweet {
     id: ID!
     text: String!
-    author: User!
+    author: User
   }
 
   # GET
@@ -26,7 +37,21 @@ const typeDefs = gql`
   }
 `
 
-const server = new ApolloServer({ typeDefs })
+const resolvers = {
+  Query: {
+    allTweets() {
+      return tweets
+    },
+    tweet(root, args) {
+      const { id } = args
+      console.log(args)
+      console.log("id: ", id)
+      return tweets.find((tweet) => tweet.id === id)
+    },
+  },
+}
+
+const server = new ApolloServer({ typeDefs, resolvers })
 
 server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`)
