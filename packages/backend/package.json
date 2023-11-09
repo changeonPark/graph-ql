@@ -1,5 +1,5 @@
 {
-  "name": "@graphql/base",
+  "name": "@graphql/backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
