@@ -4,7 +4,8 @@
   "description": "graphql practice",
   "main": "index.js",
   "scripts": {
-    "back": "pnpm -F @graphql/backend"
+    "back": "pnpm -F @graphql/backend",
+    "front": "pnpm -F @graphql/frontend"
   },
   "keywords": [],
   "author": "",
