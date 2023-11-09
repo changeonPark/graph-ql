@@ -1,4 +1,5 @@
 import { ApolloServer, gql } from "apollo-server"
+import fetch from "node-fetch"
 
 let tweets = [
   {
@@ -29,6 +30,52 @@ let users = [
 // Scalar Type: Built in
 
 const typeDefs = gql`
+  type Torrents {
+    url: String
+    hash: String
+    quality: String
+    type: String
+    is_repack: String
+    video_codec: String
+    bit_depth: String
+    audio_channels: String
+    seeds: Int
+    peers: Int
+    size: String
+    size_bytes: Int
+    date_uploaded: String
+    date_uploaded_unix: Int
+  }
+
+  type Movie {
+    id: Int
+    url: String
+    imdb_code: String
+    title: String
+    title_english: String
+    title_long: String
+    slug: String
+    year: Int
+    rating: Float
+    runtime: Float
+    summary: String
+    description_full: String
+    synopsis: String
+    yt_trailer_code: String
+    language: String
+    mpa_rating: String
+    background_image: String
+    background_image_original: String
+    small_cover_image: String
+    medium_cover_image: String
+    large_cover_image: String
+    state: String
+    date_uploaded: String
+    date_uploaded_unix: Int
+    torrents: [Torrents]
+    genres: [String]
+  }
+
   type User {
     id: ID!
     firstName: String!
@@ -49,9 +96,11 @@ const typeDefs = gql`
 
   # GET
   type Query {
+    allMovies: [Movie!]!
     allUsers: [User!]!
     allTweets: [Tweet!]!
     tweet(id: ID!): Tweet
+    movie(id: String!): Movie
   }
 
   # POST, PUT, DELETE
@@ -66,6 +115,22 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
+    async allMovies() {
+      const response = await fetch("https://yts.mx/api/v2/list_movies.json")
+
+      console.log(response.status)
+      const result = await response.json()
+
+      return result.data.movies
+    },
+    async movie(_, args) {
+      const { id } = args
+      const response = await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
+
+      const result = await response.json()
+
+      return result.data.movie
+    },
     allUsers() {
       return users
     },
