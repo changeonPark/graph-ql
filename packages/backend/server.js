@@ -1,4 +1,5 @@
-import { ApolloServer, gql } from "apollo-server"
+import { ApolloServer } from "@apollo/server"
+import { startStandaloneServer } from "@apollo/server/standalone"
 import fetch from "node-fetch"
 
 let tweets = [
@@ -29,7 +30,7 @@ let users = [
 
 // Scalar Type: Built in
 
-const typeDefs = gql`
+const typeDefs = `#graphql
   type Torrents {
     url: String
     hash: String
@@ -186,6 +187,6 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
-server.listen().then(({ url }) => {
-  console.log(`Server ready at ${url}`)
-})
+const url = await startStandaloneServer(server, { listen: { port: 4000 } })
+
+console.log(`🚀 Server ready at: ${url.url}`)
