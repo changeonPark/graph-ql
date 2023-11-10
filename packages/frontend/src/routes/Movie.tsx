@@ -1,5 +1,28 @@
+import { gql, useQuery } from "@apollo/client"
+import { useParams } from "react-router-dom"
+
+const GET_MOVIE = gql`
+  query getMovie($movieId: String!) {
+    movie(id: $movieId) {
+      id
+      title
+    }
+  }
+`
+
 const Movie = () => {
-  return <div>Movie</div>
+  const { id } = useParams()
+  const { data, loading } = useQuery(GET_MOVIE, {
+    variables: {
+      movieId: id,
+    },
+  })
+
+  if (loading) return <h1>Loading...</h1>
+
+  console.log(data)
+
+  return <div>{data.movie.title}</div>
 }
 
 export default Movie
