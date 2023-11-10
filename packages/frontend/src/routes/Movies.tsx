@@ -1,30 +1,51 @@
-import { gql, useApolloClient } from "@apollo/client"
-import { useEffect, useState } from "react"
+import { gql, useQuery } from "@apollo/client"
+
+const ALL_MOVIES = gql`
+  {
+    allMovies {
+      title
+      id
+    }
+    allTweets {
+      id
+      text
+      author {
+        fullName
+      }
+    }
+  }
+`
 
 const Movies = () => {
-  const [movies, setMovies] = useState([])
-  const client = useApolloClient()
+  const { data, loading, error } = useQuery(ALL_MOVIES)
 
-  useEffect(() => {
-    client
-      .query({
-        query: gql`
-          {
-            allMovies {
-              title
-            }
-          }
-        `,
-      })
-      .then((result) => setMovies(result.data.allMovies))
-  }, [client])
+  if (loading) {
+    return <h1> loading... </h1>
+  }
+
+  if (error) {
+    return <h1>{error.message}</h1>
+  }
+
+  console.log(data)
 
   return (
-    <div>
-      {movies.map((movie: any) => (
-        <li key={movie.title}>{movie.title}</li>
-      ))}
-    </div>
+    <>
+      <h2>Movies</h2>
+      <ul>
+        {data?.allMovies.map((movie: any) => (
+          <li key={movie.id}>{movie.title}</li>
+        ))}
+      </ul>
+      <h2>Tweets</h2>
+      <ul>
+        {data?.allTweets.map((tweet: any) => (
+          <li key={tweet.id}>
+            {tweet.text} / {tweet.author.fullName}
+          </li>
+        ))}
+      </ul>
+    </>
   )
 }
 

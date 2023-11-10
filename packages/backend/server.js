@@ -10,7 +10,7 @@ let tweets = [
   {
     id: "2",
     text: "Bye World!",
-    userId: "5",
+    userId: "2",
   },
 ]
 
