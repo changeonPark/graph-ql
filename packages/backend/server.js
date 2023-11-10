@@ -1,6 +1,7 @@
 import { ApolloServer } from "@apollo/server"
 import { startStandaloneServer } from "@apollo/server/standalone"
 import fetch from "node-fetch"
+import { readFileSync } from "fs"
 
 let tweets = [
   {
@@ -30,89 +31,7 @@ let users = [
 
 // Scalar Type: Built in
 
-const typeDefs = `#graphql
-  type Torrents {
-    url: String
-    hash: String
-    quality: String
-    type: String
-    is_repack: String
-    video_codec: String
-    bit_depth: String
-    audio_channels: String
-    seeds: Int
-    peers: Int
-    size: String
-    size_bytes: Int
-    date_uploaded: String
-    date_uploaded_unix: Int
-  }
-
-  type Movie {
-    id: Int
-    url: String
-    imdb_code: String
-    title: String
-    title_english: String
-    title_long: String
-    slug: String
-    year: Int
-    rating: Float
-    runtime: Float
-    summary: String
-    description_full: String
-    synopsis: String
-    yt_trailer_code: String
-    language: String
-    mpa_rating: String
-    background_image: String
-    background_image_original: String
-    small_cover_image: String
-    medium_cover_image: String
-    large_cover_image: String
-    state: String
-    date_uploaded: String
-    date_uploaded_unix: Int
-    torrents: [Torrents]
-    genres: [String]
-  }
-
-  type User {
-    id: ID!
-    firstName: String!
-    lastName: String!
-    fullName: String!
-  }
-  """
-  트윗 관련 타입
-  """
-  type Tweet {
-    """
-    아이디
-    """
-    id: ID!
-    text: String!
-    author: User
-  }
-
-  # GET
-  type Query {
-    allMovies: [Movie!]!
-    allUsers: [User!]!
-    allTweets: [Tweet!]!
-    tweet(id: ID!): Tweet
-    movie(id: String!): Movie
-  }
-
-  # POST, PUT, DELETE
-  type Mutation {
-    postTweet(text: String!, userId: ID!): Tweet!
-    """
-    트윗을 찾으면 삭제 및 true 반환, 없으면 false 반환
-    """
-    deleteTweet(id: ID!): Boolean!
-  }
-`
+const typeDefs = readFileSync("./schema.graphql", { encoding: "utf-8" })
 
 const resolvers = {
   Query: {
