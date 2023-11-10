@@ -1,7 +1,8 @@
 import { ApolloServer } from "@apollo/server"
 import { startStandaloneServer } from "@apollo/server/standalone"
 import fetch from "node-fetch"
-import { readFileSync } from "fs"
+import { loadFilesSync } from "@graphql-tools/load-files"
+import { mergeTypeDefs } from "@graphql-tools/merge"
 
 let tweets = [
   {
@@ -31,7 +32,8 @@ let users = [
 
 // Scalar Type: Built in
 
-const typeDefs = readFileSync("./schema.graphql", { encoding: "utf-8" })
+const loadFiles = loadFilesSync("./graphql/*.graphql")
+const typeDefs = mergeTypeDefs(loadFiles)
 
 const resolvers = {
   Query: {

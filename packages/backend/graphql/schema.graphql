@@ -1,0 +1,21 @@
+# import Movie from 'movie.graphql'
+# import User from 'user.graphql'
+# import Tweet from 'tweet.graphql'
+
+# GET
+type Query {
+  allMovies: [Movie!]!
+  allUsers: [User!]!
+  allTweets: [Tweet!]!
+  tweet(id: ID!): Tweet
+  movie(id: String!): Movie
+}
+
+# POST, PUT, DELETE
+type Mutation {
+  postTweet(text: String!, userId: ID!): Tweet!
+  """
+  트윗을 찾으면 삭제 및 true 반환, 없으면 false 반환
+  """
+  deleteTweet(id: ID!): Boolean!
+}

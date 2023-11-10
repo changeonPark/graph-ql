@@ -1,0 +1,11 @@
+"""
+트윗 관련 타입
+"""
+type Tweet {
+  """
+  아이디
+  """
+  id: ID!
+  text: String!
+  author: User
+}
