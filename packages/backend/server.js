@@ -1,7 +1,12 @@
+// TODO: convert typescript
+
 import { ApolloServer } from "@apollo/server"
 import { startStandaloneServer } from "@apollo/server/standalone"
 import fetch from "node-fetch"
+
+// 분리된 graphql 파일 한번에 불러옴
 import { loadFilesSync } from "@graphql-tools/load-files"
+// 분리된 graphql 파일 병합
 import { mergeTypeDefs } from "@graphql-tools/merge"
 
 let tweets = [
