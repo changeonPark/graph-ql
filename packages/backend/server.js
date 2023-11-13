@@ -51,6 +51,8 @@ const resolvers = {
 
       const result = await response.json()
 
+      console.log('movie called')
+
       return result.data.movie
     },
     allUsers() {
