@@ -1,0 +1,3 @@
+extend type Movie {
+  isLiked: Boolean! @client
+}
