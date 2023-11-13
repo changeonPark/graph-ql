@@ -1,8 +1,0 @@
-overwrite: true
-schema:
-  - "../backend/graphql/**/*.graphql"
-  - "!../backend/graphql/schema.graphql"
-generates:
-  ./types/type-graphql.d.ts:
-    plugins:
-      - "typescript"
